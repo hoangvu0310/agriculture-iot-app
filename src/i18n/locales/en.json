@@ -25,8 +25,7 @@
   "error": {
     "commonError": "Something went wrong, please try again later",
     "networkError": "Please check your internet connection",
-    "notFoundError": "Username does not exist",
-    "wrongPasswordError": "Password is incorrect",
+    "loginError": "Username or password is incorrect, please try again",
     "duplicateError": "Username has already existed",
     "serverError": "An unexpected error happened to the server, please try again later"
   }

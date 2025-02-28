@@ -25,8 +25,7 @@
   "error": {
     "commonError": "Có lỗi xảy ra, vui lòng thử lại sau",
     "networkError": "Vui lòng kiểm tra lại kết nối internet",
-    "notFoundError": "Tài khoản không tồn tại",
-    "wrongPasswordError": "Mật khẩu không chính xác",
+    "loginError": "Tài khoản hoặc mật khẩu không chính xác, vui lòng thử lại",
     "duplicateError": "Tài khoản đã tôn tại",
     "serverError": "Đã có lỗi xảy ra với server, vui lòng thử lại sau"
   }

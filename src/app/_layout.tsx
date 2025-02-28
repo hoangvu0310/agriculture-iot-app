@@ -7,6 +7,7 @@ import { getLanguage, LanguageOptions } from '@/src/config/storage/SettingStorag
 import { changeAppLanguage } from '@/src/i18n/i18n.config'
 import AppThemeProvider from '@/src/context/AppThemeContext'
 import Toast from 'react-native-toast-message'
+import { toastConfig } from '@/src/components/Toast'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -40,7 +41,7 @@ export default function RootLayout() {
 					<Stack.Screen name="(auth)" options={{ headerShown: false }} />
 					<Stack.Screen name="(main)" options={{ headerShown: false }} />
 				</Stack>
-				<Toast position={'bottom'} bottomOffset={30} />
+				<Toast config={toastConfig} position={'bottom'} bottomOffset={30} />
 			</Provider>
 		</AppThemeProvider>
 	)
