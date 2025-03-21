@@ -21,54 +21,76 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAppDispatch } from '@/src/hooks/useAppDispatch'
 import { useAppSelector } from '@/src/hooks/useAppSelector'
 import { RootState } from '../../redux/store'
-import { signIn } from '@/src/redux/authSlice'
-import AuthRequest from '@/src/data/request/AuthRequest'
+import { resetState, signIn } from '@/src/redux/authSlice'
 import Loading from '@/src/components/Loading'
 import Toast from 'react-native-toast-message'
 import { useEffect } from 'react'
+import Dialog from '@/src/components/dialogs/Dialog'
+import { closeDialog, openDialog } from '@/src/redux/dialogSlice'
 
 export default function SignIn() {
 	const router = useRouter()
 	const t = useTranslationHelper()
 	const { isDarkMode } = useAppTheme()
 	const dispatch = useAppDispatch()
-	const { isLoading, error } = useAppSelector((state: RootState) => state.auth)
+	const { isLoading, error, success } = useAppSelector((state: RootState) => state.auth)
+	const { isDialogOpen } = useAppSelector((state: RootState) => state.dialog)
 
 	const signInSchema = z.object({
 		username: z.string().min(1, t('auth.requiredUsername')),
 		password: z.string().min(1, t('auth.requiredPassword')),
 	})
+
 	const {
 		control,
 		handleSubmit,
 		getValues,
+		reset,
 		formState: { errors },
 	} = useForm<z.infer<typeof signInSchema>>({ resolver: zodResolver(signInSchema) })
 
 	const onSubmitSignIn = () => {
 		const values = getValues()
-		dispatch(signIn(new AuthRequest(values.username, values.password)))
-	}
-
-	const showToast = () => {
-		Toast.show({
-			type: 'error',
-			text1: t(error || ''),
-		})
+		dispatch(signIn({ username: values.username.trim(), password: values.password.trim() }))
 	}
 
 	useEffect(() => {
-		if (error) showToast()
-	}, [error])
+		if (error) {
+			Toast.show({
+				type: 'errorToast',
+				text1: t(error),
+				visibilityTime: 2000,
+			})
+		} else if (success) {
+			dispatch(openDialog())
+			// Toast.show({
+			// 	type: 'successToast',
+			// 	text1: t(success),
+			// 	visibilityTime: 2000,
+			// })
+			// const timer = setTimeout(() => {
+			// 	router.replace('/(main)/home')
+			// 	dispatch(resetState())
+			// }, 2000)
+
+			const timer = setTimeout(() => {
+				dispatch(closeDialog())
+				router.replace('/(main)/home')
+				dispatch(resetState())
+			}, 2000)
+
+			return () => clearTimeout(timer)
+		}
+	}, [error, success, dispatch])
 
 	return (
 		<SafeAreaView
-			className={`flex-1 justify-start pt-[30px] ${isDarkMode ? 'bg-dark-background' : 'bg-light-background'}`}
+			className={`flex-1 justify-start pt-[40px] ${isDarkMode ? 'bg-dark-background' : 'bg-light-background'}`}
 		>
 			<TouchableWithoutFeedback className="flex-1" onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView>
-					<ScrollView>
-						<View className={'items-center mt-[10px] mb-[30px]'}>
+					<ScrollView className={'flex-'} keyboardShouldPersistTaps="handled">
+						<View className={'items-center justify-center mt-[10px] mb-[30px]'}>
 							<Image source={IMAGES.Auth} />
 						</View>
 						<View className={'px-[35px] justify-center'}>
@@ -133,7 +155,10 @@ export default function SignIn() {
 							<CustomButton
 								title={t('auth.signIn')}
 								otherButtonStyle={'mt-[35px]'}
-								onPress={handleSubmit(onSubmitSignIn)}
+								onPress={
+									handleSubmit(onSubmitSignIn)
+									// () => router.replace('/(main)/home')
+								}
 							/>
 							<View className={'flex-row gap-1 justify-center mt-[20px]'}>
 								<Text
@@ -141,7 +166,14 @@ export default function SignIn() {
 								>
 									{t('auth.dontHaveAnAccount')}
 								</Text>
-								<TouchableOpacity activeOpacity={0.9} onPress={() => router.push('/sign-up')}>
+								<TouchableOpacity
+									activeOpacity={0.9}
+									onPress={() => {
+										reset()
+										router.push('/sign-up')
+										dispatch(resetState())
+									}}
+								>
 									<Text className="font-ptsans-bold text-[16px] text-primary">
 										{t('auth.signUpOption')}
 									</Text>
@@ -153,6 +185,18 @@ export default function SignIn() {
 			</TouchableWithoutFeedback>
 
 			<Loading visible={isLoading} />
+
+			<Dialog visible={isDialogOpen} onClose={() => dispatch(closeDialog())}>
+				<View
+					className={
+						'flex bg-white justify-center items-center rounded-2xl p-[30px] shadow-lg shadow-light-grey5'
+					}
+				>
+					<Image className={'max-w-[120px] max-h-[120px]'} source={ICONS.Success} />
+					<View className={'h-[20px]'} />
+					<Text className={'font-ptsans-bold text-[22px]'}>{t(success)}</Text>
+				</View>
+			</Dialog>
 		</SafeAreaView>
 	)
 }

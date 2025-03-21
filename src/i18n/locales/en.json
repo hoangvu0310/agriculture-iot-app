@@ -20,13 +20,17 @@
     "usernameMax": "Username must not exceed 48 characters",
     "passwordMin": "Password must contain at least 6 character",
     "passwordMax": "Password must not exceed 32 characters",
-    "confirmPasswordWrong": "Confirm password must be the same as password"
+    "confirmPasswordWrong": "Confirm password must be the same as above, please try again"
   },
   "error": {
     "commonError": "Something went wrong, please try again later",
     "networkError": "Please check your internet connection",
-    "loginError": "Username or password is incorrect, please try again",
+    "signInError": "Username or password is incorrect, please try again",
     "duplicateError": "Username has already existed",
     "serverError": "An unexpected error happened to the server, please try again later"
+  },
+  "success": {
+    "signIn": "Sign in successfully",
+    "signUp": "Account created successfully"
   }
 }

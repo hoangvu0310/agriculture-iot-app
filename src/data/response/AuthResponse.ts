@@ -1,4 +1,4 @@
-import AuthorizedModel from '@/src/data/model/AuthorizedModel'
+import { AuthorizedModel } from '@/src/data/model/AuthorizedModel'
 
 export default class AuthResponse {
 	userId: string
@@ -32,11 +32,11 @@ export default class AuthResponse {
 	}
 
 	toModel(): AuthorizedModel {
-		return new AuthorizedModel({
+		return {
 			userId: this.userId,
 			role: this.role,
 			token: this.token,
 			refreshToken: this.refreshToken,
-		})
+		}
 	}
 }

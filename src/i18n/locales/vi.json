@@ -20,13 +20,17 @@
     "usernameMax": "Tài khoản không được vượt quá 48 kí tự",
     "passwordMin": "Mật khẩu phải chứa ít nhất 6 kí tự ",
     "passwordMax": "Mật khẩu không được vượt quá 32 kí tự",
-    "confirmPasswordWrong": "Mật khẩu xác nhận không khớp"
+    "confirmPasswordWrong": "Mật khẩu xác nhận không khớp, vui lòng thử lại"
   },
   "error": {
     "commonError": "Có lỗi xảy ra, vui lòng thử lại sau",
     "networkError": "Vui lòng kiểm tra lại kết nối internet",
-    "loginError": "Tài khoản hoặc mật khẩu không chính xác, vui lòng thử lại",
+    "signInError": "Tài khoản hoặc mật khẩu không chính xác, vui lòng thử lại",
     "duplicateError": "Tài khoản đã tôn tại",
     "serverError": "Đã có lỗi xảy ra với server, vui lòng thử lại sau"
+  },
+  "success": {
+    "signIn": "Đăng nhập thành công",
+    "signUp": "Tạo tài khoản thành công"
   }
 }

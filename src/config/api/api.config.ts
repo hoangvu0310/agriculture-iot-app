@@ -25,11 +25,6 @@ axiosClient.interceptors.request.use(
 	async (config) => {
 		requestLogger(config, loggerConfig)
 
-		if (config.headers.authorization) {
-			delete config.headers.authorization
-			return config
-		}
-
 		const accessToken = await getAccessToken()
 		if (accessToken) {
 			config.headers.Authorization = `Bearer ${accessToken}`
@@ -49,7 +44,7 @@ axiosClient.interceptors.response.use(
 	},
 	(error) => {
 		errorLogger(error)
-		Promise.reject(error)
+		return Promise.reject(error)
 	},
 )
 

@@ -1,4 +1,4 @@
-import { AxiosError } from 'axios'
+import { AxiosError } from 'axios/index'
 
 export abstract class AppError extends Error {
 	protected constructor(message: string) {
@@ -28,33 +28,53 @@ export class ServerError extends AppError {
 }
 
 export class ApiCallError extends AppError {
-	constructor(errorType: string) {
-		let message: string
-		switch (errorType) {
-			case 'NOTFOUND':
-				message = 'error.notFoundError'
-				break
-			case 'Unauthorized':
-				message = 'error.wrongPasswordError'
-				break
-			case 'DUPLICATE':
-				message = 'error.duplicateError'
-				break
-			default:
-				message = 'error.commonError'
+	constructor(responseMessage: string | string[]) {
+		if (typeof responseMessage === 'string') {
+			responseMessage = responseMessage.toLowerCase()
+		} else {
+			responseMessage = responseMessage.join(',')
 		}
-		super(message)
-		this.errorType = errorType
+		let errorMessage: string
+		if (responseMessage.includes('user') || responseMessage.includes('password')) {
+			errorMessage = 'error.signInError'
+		} else {
+			switch (responseMessage) {
+				case 'Duplicate entry':
+					errorMessage = 'error.duplicateError'
+					break
+				default:
+					errorMessage = 'error.commonError'
+			}
+		}
+
+		// switch (responseMessage) {
+		// 	case 'NOTFOUND':
+		// 		errorMessage = 'error.loginError'
+		// 		break
+		// 	case 'Unauthorized':
+		// 		errorMessage = 'error.loginError'
+		// 		break
+		// 	case 'Bad Request':
+		// 		errorMessage = 'error.loginError'
+		// 		break
+		// 	case 'DUPLICATE':
+		// 		errorMessage = 'error.duplicateError'
+		// 		break
+		// 	default:
+		// 		errorMessage = 'error.commonError'
+		// }
+		super(errorMessage)
+		this.errorMessage = errorMessage
 	}
 
-	public errorType: string
+	public errorMessage: string
 }
 
 export function handleError(error: any): AppError {
 	if (error instanceof AxiosError) {
 		if (error.response && error.response.data) {
-			const responseErrorType = error.response.data.error
-			return new ApiCallError(responseErrorType)
+			const responseErrorMessage = error.response.data.message
+			return new ApiCallError(responseErrorMessage)
 		} else if (error.request) {
 			return new ServerError()
 		}
