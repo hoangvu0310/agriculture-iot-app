@@ -9,10 +9,10 @@ type BackButtonProps = {
 
 export default function BackButton({ onPress, otherStyles, isDarkMode }: BackButtonProps) {
 	return (
-		<View className={`absolute top-[10px] ${otherStyles}`}>
+		<View className={`${otherStyles}`}>
 			<TouchableOpacity activeOpacity={0.9} onPress={onPress}>
 				<Image
-					className={'h-[20px] w-[12px]'}
+					className={'h-[24px] w-[16px]'}
 					source={ICONS.Back}
 					tintColor={isDarkMode ? COLORS.white : COLORS.black}
 				/>

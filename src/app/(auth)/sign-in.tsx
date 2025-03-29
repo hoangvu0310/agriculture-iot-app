@@ -8,7 +8,6 @@ import {
 	TouchableWithoutFeedback,
 	View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { ICONS, IMAGES } from '@/src/constants'
 import AuthTextFormField from '@/src/components/textfields/AuthTextFormField'
 import CustomButton from '@/src/components/buttons/CustomButton'
@@ -27,6 +26,7 @@ import Toast from 'react-native-toast-message'
 import { useEffect } from 'react'
 import Dialog from '@/src/components/dialogs/Dialog'
 import { closeDialog, openDialog } from '@/src/redux/dialogSlice'
+import SafeAreaLayout from '@/src/components/layouts/SafeAreaLayout'
 
 export default function SignIn() {
 	const router = useRouter()
@@ -84,9 +84,7 @@ export default function SignIn() {
 	}, [error, success, dispatch])
 
 	return (
-		<SafeAreaView
-			className={`flex-1 justify-start pt-[40px] ${isDarkMode ? 'bg-dark-background' : 'bg-light-background'}`}
-		>
+		<SafeAreaLayout otherStyle={'pt-[40px]'}>
 			<TouchableWithoutFeedback className="flex-1" onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView>
 					<ScrollView className={'flex-'} keyboardShouldPersistTaps="handled">
@@ -197,6 +195,6 @@ export default function SignIn() {
 					<Text className={'font-ptsans-bold text-[22px]'}>{t(success)}</Text>
 				</View>
 			</Dialog>
-		</SafeAreaView>
+		</SafeAreaLayout>
 	)
 }

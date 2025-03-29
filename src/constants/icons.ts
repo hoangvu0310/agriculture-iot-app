@@ -8,4 +8,9 @@ export default {
 	Error: require('../../assets/icons/ic-error.png'),
 	Success: require('../../assets/icons/ic-success.png'),
 	Info: require('../../assets/icons/ic-info.png'),
+	Home: require('../../assets/icons/ic-home.png'),
+	Device: require('../../assets/icons/ic-device.png'),
+	Location: require('../../assets/icons/ic-location.png'),
+	Detection: require('../../assets/icons/ic-detection.png'),
+	Settings: require('../../assets/icons/ic-settings.png'),
 }

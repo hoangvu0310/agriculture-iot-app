@@ -8,7 +8,6 @@ import {
 	TouchableWithoutFeedback,
 	View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { ICONS, IMAGES } from '@/src/constants'
 import AuthTextFormField from '@/src/components/textfields/AuthTextFormField'
 import CustomButton from '@/src/components/buttons/CustomButton'
@@ -29,6 +28,7 @@ import Toast from 'react-native-toast-message'
 import { closeDialog } from '@/src/redux/dialogSlice'
 import Loading from '@/src/components/Loading'
 import Dialog from '@/src/components/dialogs/Dialog'
+import SafeAreaLayout from '@/src/components/layouts/SafeAreaLayout'
 
 export default function SignUp() {
 	const router = useRouter()
@@ -87,13 +87,11 @@ export default function SignUp() {
 	}, [error, success, dispatch])
 
 	return (
-		<SafeAreaView
-			className={`flex-1 justify-start ${isDarkMode ? 'bg-dark-background' : 'bg-light-background'}`}
-		>
+		<SafeAreaLayout>
 			<TouchableWithoutFeedback className={'flex-1'} onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView>
 					<ScrollView>
-						<View className={'pb-[50px]'}>
+						<View className={'pb-[30px]'}>
 							<BackButton
 								otherStyles={`pl-[35px]`}
 								isDarkMode={isDarkMode}
@@ -220,6 +218,6 @@ export default function SignUp() {
 					<Text className={'font-ptsans-bold text-[22px]'}>{t(success)}</Text>
 				</View>
 			</Dialog>
-		</SafeAreaView>
+		</SafeAreaLayout>
 	)
 }
