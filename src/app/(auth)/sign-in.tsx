@@ -136,7 +136,7 @@ export default function SignIn() {
 										placeholder={t('auth.password')}
 										leadingIcon={ICONS.Lock}
 										value={value}
-										setValue={(value) => onChange(value)}
+										setValue={onChange}
 									/>
 								)}
 							/>
@@ -182,7 +182,7 @@ export default function SignIn() {
 				</KeyboardAvoidingView>
 			</TouchableWithoutFeedback>
 
-			<Loading visible={isLoading} />
+			<Loading visible={isLoading} size={80} />
 
 			<Dialog visible={isDialogOpen} onClose={() => dispatch(closeDialog())}>
 				<View

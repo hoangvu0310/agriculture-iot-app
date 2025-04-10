@@ -10,7 +10,7 @@ export default class AuthService {
 		return await runAsynchronousCall<AuthResponse, AuthorizedModel>(
 			() =>
 				axiosClient
-					.post(APIS.SignIn, JSON.stringify(authRequest))
+					.post(APIS.Auth.SignIn, JSON.stringify(authRequest))
 					.then((res) => AuthResponse.fromJson(res.data)),
 			(response) => response.toModel(),
 		)
@@ -20,7 +20,7 @@ export default class AuthService {
 		return await runAsynchronousCall<AuthResponse, AuthorizedModel>(
 			() =>
 				axiosClient
-					.post(APIS.SignUp, JSON.stringify(authRequest))
+					.post(APIS.Auth.SignUp, JSON.stringify(authRequest))
 					.then((res) => AuthResponse.fromJson(res.data)),
 			(response) => response.toModel(),
 		)

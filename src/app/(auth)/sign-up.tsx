@@ -90,7 +90,7 @@ export default function SignUp() {
 		<SafeAreaLayout>
 			<TouchableWithoutFeedback className={'flex-1'} onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView>
-					<ScrollView>
+					<ScrollView className={'flex-'} keyboardShouldPersistTaps="handled">
 						<View className={'pb-[30px]'}>
 							<BackButton
 								otherStyles={`pl-[35px]`}
@@ -205,7 +205,7 @@ export default function SignUp() {
 				</KeyboardAvoidingView>
 			</TouchableWithoutFeedback>
 
-			<Loading visible={isLoading} />
+			<Loading visible={isLoading} size={80} />
 
 			<Dialog visible={isDialogOpen} onClose={() => dispatch(closeDialog())}>
 				<View

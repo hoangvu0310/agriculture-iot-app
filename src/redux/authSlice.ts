@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AuthRequest } from '@/src/data/request/AuthRequest'
 import AuthService from '@/src/data/service/AuthService'
 import { AuthorizedModel } from '@/src/data/model/AuthorizedModel'
-import { Success } from '@/src/data/result/Result'
+import { SuccessResult } from '@/src/data/result/Result'
 import {
 	saveAccessToken,
 	savePassword,
@@ -11,7 +11,7 @@ import {
 	saveUsername,
 } from '@/src/config/storage/SecureStorage'
 
-interface AuthState {
+type AuthState = {
 	authorizedModel: AuthorizedModel
 	isLoading: boolean
 	error: string | null
@@ -35,13 +35,13 @@ export const signUp = createAsyncThunk<AuthorizedModel, AuthRequest, { rejectVal
 const handleAuth = async (
 	authFunction: (
 		request: AuthRequest,
-	) => Promise<Success<AuthorizedModel> | { error: { message: string } }>,
+	) => Promise<SuccessResult<AuthorizedModel> | { error: { message: string } }>,
 	request: AuthRequest,
 	rejectWithValue: (value: string) => any,
 ) => {
 	const res = await authFunction(request)
 
-	if (res instanceof Success) {
+	if (res instanceof SuccessResult) {
 		const data = res.data
 		await Promise.all([
 			saveAccessToken(data.token),
@@ -56,7 +56,7 @@ const handleAuth = async (
 	}
 }
 
-const initialState: AuthState = {
+const initialAuthState: AuthState = {
 	authorizedModel: {
 		userId: '',
 		token: '',
@@ -70,7 +70,7 @@ const initialState: AuthState = {
 
 const authSlice = createSlice({
 	name: 'auth',
-	initialState: initialState,
+	initialState: initialAuthState,
 	reducers: {
 		resetState: (state) => {
 			state.authorizedModel = {

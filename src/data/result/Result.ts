@@ -2,13 +2,13 @@ import { AppError, CommonError, handleError, NetworkError } from '@/src/data/err
 import checkConnection from '@/src/utils/CheckConnection'
 import { AxiosError } from 'axios'
 
-export type Result<T> = Success<T> | Error
+export type Result<T> = SuccessResult<T> | ErrorResult
 
-export class Success<T> {
+export class SuccessResult<T> {
 	constructor(public data: T) {}
 }
 
-export class Error {
+export class ErrorResult {
 	constructor(public error: AppError) {}
 }
 
@@ -18,16 +18,16 @@ export async function runAsynchronousCall<T, E>(
 ): Promise<Result<E>> {
 	const isConnected = await checkConnection()
 	if (!isConnected) {
-		return new Error(new NetworkError())
+		return new ErrorResult(new NetworkError())
 	}
 
 	try {
 		const response = await request()
-		return new Success(map(response))
+		return new SuccessResult(map(response))
 	} catch (error) {
 		if (error instanceof AxiosError) {
-			return new Error(handleError(error))
+			return new ErrorResult(handleError(error))
 		}
-		return new Error(new CommonError())
+		return new ErrorResult(new CommonError())
 	}
 }
