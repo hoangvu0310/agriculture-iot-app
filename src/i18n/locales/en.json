@@ -1,4 +1,6 @@
 {
+  "cancel": "Cancel",
+  "accept": "Accept",
   "auth": {
     "signIn": "Sign In",
     "signUp": "Sign Up",
@@ -31,6 +33,31 @@
   },
   "success": {
     "signIn": "Sign in successfully",
-    "signUp": "Account created successfully"
+    "signUp": "Account created successfully",
+    "createLocation": "Create location successfully",
+    "updateLocation": "Update location successfully",
+    "deleteLocation": "Delete location successfully"
+  },
+  "location": {
+    "addLocation": "Add Location",
+    "searchLocation": "Search location",
+    "editLocation": "Edit location",
+    "deleteLocation": "Delete Location",
+    "requiredLocationName": "Location name is required",
+    "requiredLocationAddress": "Location address is required",
+    "locationNamePlaceholder": "Enter location name",
+    "locationAddressPlaceholder": "Enter location address",
+    "locationName": "Location name",
+    "locationAddress": "Location address",
+    "locationSettings": "Settings",
+    "locationCapacity": "Capacity",
+    "locationArea": "Area (m²)",
+    "locationDisPerRow": "Distance per Row (cm)",
+    "locationDisPerHole": "Distance per Hole (cm)",
+    "locationFertilizeLevel": "Fertilizer Level",
+    "locationTotalHoles": "Total Hole",
+    "locationDripRatePerHoles": "Drip Rate per Hole (l/h/hole)",
+    "locationWateringMode": "Watering Mode",
+    "addLocationImage": "Click to add location image"
   }
 }

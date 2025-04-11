@@ -4,13 +4,13 @@ type DialogState = {
 	isDialogOpen: boolean
 }
 
-const initialState: DialogState = {
+const initialDialogState: DialogState = {
 	isDialogOpen: false,
 }
 
 const dialogSlice = createSlice({
 	name: 'dialog',
-	initialState,
+	initialState: initialDialogState,
 	reducers: {
 		openDialog: (state) => {
 			state.isDialogOpen = true

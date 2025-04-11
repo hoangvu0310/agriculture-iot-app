@@ -1,4 +1,6 @@
 {
+  "cancel": "Hủy",
+  "accept": "Xác nhận",
   "auth": {
     "signIn": "Đăng Nhập",
     "signUp": "Đăng Kí",
@@ -31,6 +33,31 @@
   },
   "success": {
     "signIn": "Đăng nhập thành công",
-    "signUp": "Tạo tài khoản thành công"
+    "signUp": "Tạo tài khoản thành công",
+    "createLocation": "Tạo địa điểm thành công",
+    "updateLocation": "Cập nhật địa điểm thành công",
+    "deleteLocation": "Xóa địa điểm thành công"
+  },
+  "location": {
+    "addLocation": "Thêm Địa điểm",
+    "searchLocation": "Tìm địa điểm",
+    "editLocation": "Chỉnh sửa địa điểm",
+    "deleteLocation": "Xóa địa điểm",
+    "requiredLocationName": "Vui lòng nhập tên địa điểm",
+    "requiredLocationAddress": "Vui lòng nhập địa chỉ của địa điểm",
+    "locationNamePlaceholder": "Nhập tên địa điểm",
+    "locationAddressPlaceholder": "Nhập địa chỉ",
+    "locationName": "Tên địa điểm",
+    "locationAddress": "Địa chỉ",
+    "locationSettings": "Cài đặt",
+    "locationCapacity": "Capacity",
+    "locationArea": "Area (m²)",
+    "locationDisPerRow": "Distance per Row (cm)",
+    "locationDisPerHole": "Distance per Hole (cm)",
+    "locationFertilizeLevel": "Fertilizer Level",
+    "locationTotalHoles": "Total Hole",
+    "locationDripRatePerHoles": "Drip Rate per Hole (l/h/hole)",
+    "locationWateringMode": "Watering Mode",
+    "addLocationImage": "Nhấn để thêm ảnh của địa điểm"
   }
 }

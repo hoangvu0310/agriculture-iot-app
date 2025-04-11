@@ -8,6 +8,7 @@ import { changeAppLanguage } from '@/src/i18n/i18n.config'
 import AppThemeProvider from '@/src/context/AppThemeContext'
 import Toast from 'react-native-toast-message'
 import { toastConfig } from '@/src/components/Toast'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -34,15 +35,17 @@ export default function RootLayout() {
 	if (!fontsLoaded && !error) return null
 
 	return (
-		<AppThemeProvider>
-			<Provider store={store}>
-				<Stack initialRouteName="(onboarding)/index">
-					<Stack.Screen name="(onboarding)/index" options={{ headerShown: false }} />
-					<Stack.Screen name="(auth)" options={{ headerShown: false }} />
-					<Stack.Screen name="(main)" options={{ headerShown: false }} />
-				</Stack>
-				<Toast config={toastConfig} position={'bottom'} bottomOffset={30} />
-			</Provider>
-		</AppThemeProvider>
+		<GestureHandlerRootView>
+			<AppThemeProvider>
+				<Provider store={store}>
+					<Stack initialRouteName="(onboarding)/index">
+						<Stack.Screen name="(onboarding)/index" options={{ headerShown: false }} />
+						<Stack.Screen name="(auth)" options={{ headerShown: false }} />
+						<Stack.Screen name="(main)" options={{ headerShown: false }} />
+					</Stack>
+					<Toast config={toastConfig} position={'bottom'} bottomOffset={30} />
+				</Provider>
+			</AppThemeProvider>
+		</GestureHandlerRootView>
 	)
 }

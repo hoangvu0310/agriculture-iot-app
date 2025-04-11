@@ -1,4 +1,4 @@
-import { LayoutChangeEvent, View } from 'react-native'
+import { Keyboard, LayoutChangeEvent, View } from 'react-native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import { useAppTheme } from '@/src/hooks/useAppTheme'
 import Icons from '@/src/constants/icons'
@@ -17,6 +17,7 @@ const tabIcons: Record<string, any> = {
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 	const { isDarkMode } = useAppTheme()
 	const [dimension, setDimension] = useState({ height: 0, width: 0 })
+	const [isKeyboardVisible, setKeyboardVisible] = useState(false)
 
 	const buttonWidth = dimension.width / state.routes.length
 	const highlightPositionX = useSharedValue(0)
@@ -44,14 +45,33 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 		})
 	}, [state.index])
 
+	useEffect(() => {
+		const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+			setKeyboardVisible(true)
+		})
+		const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+			setKeyboardVisible(false)
+		})
+
+		return () => {
+			keyboardDidShowListener.remove()
+			keyboardDidHideListener.remove()
+		}
+	}, [])
+
+	// If keyboard is visible, don't render the TabBar
+	if (isKeyboardVisible) {
+		return null
+	}
+
 	return (
 		<View
 			onLayout={onTabBarLayout}
-			className={`self-center max-w-[700px] justify-between flex-row ${isDarkMode ? 'bg-dark-background shadow-md shadow-light-grey4' : 'bg-light-background shadow-md shadow-light-grey5'}`}
+			className={`self-center max-w-[700px] justify-between flex-row ${isDarkMode ? 'bg-dark-background shadow-lg shadow-light-grey4' : 'bg-light-background shadow-md shadow-light-grey3'}`}
 		>
 			<Animated.View
-				style={[animatedHighlightStyle, { left: (buttonWidth - 50) / 2 }]}
-				className={`absolute top-0 h-[2px] w-[50px] bg-primary`}
+				style={[animatedHighlightStyle, { left: (buttonWidth - 60) / 2 }]}
+				className={`absolute top-0 h-[2px] w-[60px] bg-primary`}
 			/>
 
 			{state.routes.map((route, index) => {
@@ -82,31 +102,6 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 						label={label}
 						isDarkMode={isDarkMode}
 					/>
-
-					// <TouchableOpacity
-					// 	key={index}
-					// 	accessibilityRole="button"
-					// 	accessibilityState={isFocused ? { selected: true } : {}}
-					// 	accessibilityLabel={options.tabBarAccessibilityLabel}
-					// 	testID={options.tabBarTestID}
-					// 	onPress={onPress}
-					// 	className={`flex-1 justify-center items-center`}
-					// >
-					// 	<View
-					// 		className={`py-2 w-[60px] justify-center items-center ${isFocused ? 'border-primary border-t-[2px]' : ''}`}
-					// 	>
-					// 		<Image
-					// 			source={iconSource}
-					// 			tintColor={`${isFocused ? COLORS.primary : isDarkMode ? COLORS.white : COLORS.black}`}
-					// 			className={`w-[30px] h-[30px]`}
-					// 		/>
-					// 		<Text
-					// 			className={`text-[15px] font-ptsans-bold pt-1 ${isFocused ? 'text-primary' : isDarkMode ? 'text-white' : 'text-black'}`}
-					// 		>
-					// 			{label}
-					// 		</Text>
-					// 	</View>
-					// </TouchableOpacity>
 				)
 			})}
 		</View>

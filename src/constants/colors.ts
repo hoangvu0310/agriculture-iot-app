@@ -12,11 +12,14 @@ const colors = {
 		grey4: '#262626',
 		grey5: '#696767',
 		grey6: '#BEBEBE',
+		grey7: '#FAFAFA',
 		background: '#FFFFFF',
 	},
 	dark: {
 		grey1: '#B0ABAB',
 		grey2: '#FAFAFA',
+		grey3: '#242526',
+		grey4: '#333333',
 		background: '#373737',
 	},
 }

@@ -1,4 +1,12 @@
 export default {
-	SignIn: '/auth/signin',
-	SignUp: '/auth/signup',
+	Auth: {
+		SignIn: '/auth/signin',
+		SignUp: '/auth/signup',
+	},
+	Location: {
+		GetLocation: '/location',
+		GetUserLocation: '/location/user',
+		DeleteLocation: '/location/',
+		UpdateLocation: '/location/',
+	},
 }

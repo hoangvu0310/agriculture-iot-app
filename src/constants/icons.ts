@@ -13,4 +13,8 @@ export default {
 	Location: require('../../assets/icons/ic-location.png'),
 	Detection: require('../../assets/icons/ic-detection.png'),
 	Settings: require('../../assets/icons/ic-settings.png'),
+	More: require('../../assets/icons/ic-more.png'),
+	Cancel: require('../../assets/icons/ic-cancel.png'),
+	Edit: require('../../assets/icons/ic-edit.png'),
+	Delete: require('../../assets/icons/ic-delete.png'),
 }
