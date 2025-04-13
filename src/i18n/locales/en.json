@@ -38,8 +38,13 @@
     "updateLocation": "Update location successfully",
     "deleteLocation": "Delete location successfully"
   },
+  "tabLabel": {
+    "home": "Home",
+    "location": "Location",
+    "settings": "Settings"
+  },
   "location": {
-    "addLocation": "Add Location",
+    "addLocation": "Create Location",
     "searchLocation": "Search location",
     "editLocation": "Edit location",
     "deleteLocation": "Delete Location",

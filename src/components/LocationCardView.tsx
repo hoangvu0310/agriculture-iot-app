@@ -1,8 +1,8 @@
-import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native'
+import { Image, LayoutChangeEvent, Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { COLORS, IMAGES } from '@/src/constants'
 import { useAppTheme } from '@/src/hooks/useAppTheme'
 import Icons from '@/src/constants/icons'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import useTranslationHelper from '@/src/hooks/useTranslationHelper'
 import { LocationModel } from '@/src/data/model/LocationModel'
 
@@ -25,13 +25,13 @@ export default function LocationCardView({
 	const t = useTranslationHelper()
 	const [menuVisible, setMenuVisible] = useState<boolean>(false)
 	const [buttonHeight, setButtonHeight] = useState<number>(0)
-	const moreButtonRef = useRef<TouchableOpacity>(null)
 
 	const showMoreOption = () => {
-		moreButtonRef.current?.measure((height) => {
-			setButtonHeight(height)
-		})
 		setMenuVisible(!menuVisible)
+	}
+
+	const onButtonLayout = (e: LayoutChangeEvent) => {
+		setButtonHeight(e.nativeEvent.layout.height)
 	}
 
 	return (
@@ -55,7 +55,7 @@ export default function LocationCardView({
 						/>
 					)}
 					<TouchableOpacity
-						ref={moreButtonRef}
+						onLayout={onButtonLayout}
 						onPress={showMoreOption}
 						className={`absolute right-[15] top-[15] rounded-[20px] p-[3] ${isDarkMode ? 'bg-dark-grey4' : 'bg-white'}`}
 					>
@@ -81,10 +81,10 @@ export default function LocationCardView({
 			</Pressable>
 			{menuVisible && (
 				<View
-					className={'absolute flex bg-white px-[5px] rounded-[10px] shadow-md shadow-light-grey3'}
+					className={`absolute flex ${isDarkMode ? 'bg-dark-grey4' : 'bg-white'} px-[5px] rounded-[10px] shadow-md shadow-light-grey3`}
 					style={{
 						right: 15,
-						top: 15 + buttonHeight + 32,
+						top: 15 + buttonHeight + 10,
 					}}
 				>
 					<TouchableOpacity
@@ -96,7 +96,9 @@ export default function LocationCardView({
 						}}
 					>
 						<Image source={Icons.Edit} tintColor={COLORS.primary} className={'w-[20px] h-[20px]'} />
-						<Text className={'font-ptsans text-[16px]'}>{t('location.editLocation')}</Text>
+						<Text className={`font-ptsans text-[16px] ${isDarkMode ? 'text-primary' : ''}`}>
+							{t('location.editLocation')}
+						</Text>
 					</TouchableOpacity>
 					<View className={'h-[2px] bg-primary'} />
 					<TouchableOpacity
@@ -109,7 +111,9 @@ export default function LocationCardView({
 							tintColor={COLORS.primary}
 							className={'w-[20px] h-[20px]'}
 						/>
-						<Text className={'font-ptsans text-[16px]'}>{t('location.deleteLocation')}</Text>
+						<Text className={`font-ptsans text-[16px] ${isDarkMode ? 'text-primary' : ''}`}>
+							{t('location.deleteLocation')}
+						</Text>
 					</TouchableOpacity>
 				</View>
 			)}

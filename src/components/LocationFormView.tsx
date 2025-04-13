@@ -9,13 +9,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAppTheme } from '@/src/hooks/useAppTheme'
 import useTranslationHelper from '@/src/hooks/useTranslationHelper'
 import { LocationModel } from '@/src/data/model/LocationModel'
-import { BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import CustomButton from '@/src/components/buttons/CustomButton'
-import {
-	launchImageLibraryAsync,
-	MediaTypeOptions,
-	requestCameraPermissionsAsync,
-} from 'expo-image-picker'
+import { launchImageLibraryAsync, requestCameraPermissionsAsync } from 'expo-image-picker'
 import Icons from '@/src/constants/icons'
 import { useAppDispatch } from '@/src/hooks/useAppDispatch'
 import { PostLocationRequest } from '@/src/data/request/LocationRequest'
@@ -137,7 +132,7 @@ export default function LocationFormView({
 		}
 
 		const result = await launchImageLibraryAsync({
-			mediaTypes: MediaTypeOptions.Images,
+			mediaTypes: ['images'],
 			allowsEditing: true,
 			aspect: [4, 3],
 			quality: 1,
@@ -197,7 +192,7 @@ export default function LocationFormView({
 	]
 
 	return (
-		<BottomSheetScrollView>
+		<View>
 			<View className={`flex-1 justify-center items-center mb-[30px] mx-[20px]`}>
 				<Text className={`font-ptsans-bold text-[28px] mb-[15px] text-primary`}>{title}</Text>
 				<View className={`w-full h-[1px] ${isDarkMode ? 'bg-white' : 'bg-light-grey2'}`} />
@@ -332,6 +327,6 @@ export default function LocationFormView({
 					/>
 				</View>
 			</View>
-		</BottomSheetScrollView>
+		</View>
 	)
 }

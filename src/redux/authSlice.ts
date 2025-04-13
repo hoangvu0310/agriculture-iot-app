@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { AuthRequest } from '@/src/data/request/AuthRequest'
 import AuthService from '@/src/data/service/AuthService'
 import { AuthorizedModel } from '@/src/data/model/AuthorizedModel'
-import { SuccessResult } from '@/src/data/result/Result'
+import { Result, SuccessResult } from '@/src/data/result/Result'
 import {
 	saveAccessToken,
 	savePassword,
@@ -33,9 +33,7 @@ export const signUp = createAsyncThunk<AuthorizedModel, AuthRequest, { rejectVal
 )
 
 const handleAuth = async (
-	authFunction: (
-		request: AuthRequest,
-	) => Promise<SuccessResult<AuthorizedModel> | { error: { message: string } }>,
+	authFunction: (request: AuthRequest) => Promise<Result<AuthorizedModel>>,
 	request: AuthRequest,
 	rejectWithValue: (value: string) => any,
 ) => {

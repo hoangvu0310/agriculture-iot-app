@@ -2,6 +2,7 @@ import {
 	Image,
 	Keyboard,
 	KeyboardAvoidingView,
+	Platform,
 	ScrollView,
 	Text,
 	TouchableOpacity,
@@ -84,11 +85,14 @@ export default function SignIn() {
 	}, [error, success, dispatch])
 
 	return (
-		<SafeAreaLayout otherStyle={'pt-[40px]'}>
-			<TouchableWithoutFeedback className="flex-1" onPress={Keyboard.dismiss}>
-				<KeyboardAvoidingView>
-					<ScrollView className={'flex-'} keyboardShouldPersistTaps="handled">
-						<View className={'items-center justify-center mt-[10px] mb-[30px]'}>
+		<SafeAreaLayout>
+			<TouchableWithoutFeedback className={'flex-1'} onPress={Keyboard.dismiss}>
+				<KeyboardAvoidingView
+					className={'flex-1'}
+					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				>
+					<ScrollView keyboardShouldPersistTaps={'handled'}>
+						<View className={'items-center justify-center mt-[50px] mb-[30px]'}>
 							<Image source={IMAGES.Auth} />
 						</View>
 						<View className={'px-[35px] justify-center'}>

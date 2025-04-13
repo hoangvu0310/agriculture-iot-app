@@ -30,7 +30,7 @@ export default function LocationTextFormField({
 				{inputLabel}
 			</Text>
 			<AppTextField
-				otherTextFieldStyle={`py-[10px] border-2`}
+				otherTextFieldStyle={`border-2`}
 				otherInputStyle={'text-[16px]' + ' ' + otherInputStyle}
 				value={value}
 				onChangeText={onChange}

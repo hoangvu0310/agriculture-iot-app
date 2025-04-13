@@ -2,6 +2,7 @@ import {
 	Image,
 	Keyboard,
 	KeyboardAvoidingView,
+	Platform,
 	ScrollView,
 	Text,
 	TouchableOpacity,
@@ -89,16 +90,20 @@ export default function SignUp() {
 	return (
 		<SafeAreaLayout>
 			<TouchableWithoutFeedback className={'flex-1'} onPress={Keyboard.dismiss}>
-				<KeyboardAvoidingView>
-					<ScrollView className={'flex-'} keyboardShouldPersistTaps="handled">
-						<View className={'pb-[30px]'}>
-							<BackButton
-								otherStyles={`pl-[35px]`}
-								isDarkMode={isDarkMode}
-								onPress={() => router.back()}
-							/>
-						</View>
-						<View className={'items-center mt-[10px] mb-[30px]'}>
+				<KeyboardAvoidingView
+					className={'flex-1'}
+					behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+				>
+					<ScrollView className={'flex-'} keyboardShouldPersistTaps={'handled'}>
+						<BackButton
+							otherStyles={`absolute pl-[35px]`}
+							isDarkMode={isDarkMode}
+							onPress={() => router.back()}
+						/>
+						{/*<View className={'pb-[30px]'}>*/}
+						{/*	*/}
+						{/*</View>*/}
+						<View className={'items-center mt-[50px] mb-[30px]'}>
 							<Image source={IMAGES.Auth} />
 						</View>
 						<View className={'px-[35px]'}>

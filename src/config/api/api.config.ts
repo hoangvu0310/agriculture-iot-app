@@ -1,9 +1,13 @@
 import axios from 'axios/index'
 import { getAccessToken } from '@/src/config/storage/SecureStorage'
 import { errorLogger, requestLogger, responseLogger } from 'axios-logger'
+import { Platform } from 'react-native'
 
 const axiosClient = axios.create({
-	baseURL: process.env.EXPO_PUBLIC_API_URL || 'http://10.0.2.2:3000/',
+	baseURL:
+		Platform.OS === 'android'
+			? process.env.EXPO_PUBLIC_API_URL_ANDROID || 'http://10.0.2.2:3000/'
+			: process.env.EXPO_PUBLIC_API_URL_IOS,
 	timeout: 10000,
 	withCredentials: true,
 	headers: {

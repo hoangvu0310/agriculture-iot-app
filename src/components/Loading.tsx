@@ -5,7 +5,7 @@ import { useAppTheme } from '@/src/hooks/useAppTheme'
 type LoadingProps = {
 	visible: boolean
 	size: number
-	otherStyles: string
+	otherStyles?: string
 }
 
 export default function Loading({ visible, size, otherStyles }: LoadingProps) {

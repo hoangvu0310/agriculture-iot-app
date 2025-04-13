@@ -1,23 +1,23 @@
-import { Keyboard, LayoutChangeEvent, View } from 'react-native'
+import { Keyboard, LayoutChangeEvent, Platform, View } from 'react-native'
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
 import { useAppTheme } from '@/src/hooks/useAppTheme'
 import Icons from '@/src/constants/icons'
 import TabBarButton from '@/src/components/tabBar/TabBarButton'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 import { useEffect, useState } from 'react'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const tabIcons: Record<string, any> = {
-	Home: Icons.Home,
-	Device: Icons.Device,
-	Location: Icons.Location,
-	Detection: Icons.Detection,
-	Settings: Icons.Settings,
+	home: Icons.Home,
+	location: Icons.Location,
+	settings: Icons.Settings,
 }
 
 export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 	const { isDarkMode } = useAppTheme()
 	const [dimension, setDimension] = useState({ height: 0, width: 0 })
 	const [isKeyboardVisible, setKeyboardVisible] = useState(false)
+	const insets = useSafeAreaInsets()
 
 	const buttonWidth = dimension.width / state.routes.length
 	const highlightPositionX = useSharedValue(0)
@@ -67,7 +67,8 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 	return (
 		<View
 			onLayout={onTabBarLayout}
-			className={`self-center max-w-[700px] justify-between flex-row ${isDarkMode ? 'bg-dark-background shadow-lg shadow-light-grey4' : 'bg-light-background shadow-md shadow-light-grey3'}`}
+			className={`self-center max-w-[700px] justify-between flex-row ${isDarkMode ? 'bg-dark-background shadow-lg shadow-light-grey5' : 'bg-light-background shadow-md shadow-light-grey2'}`}
+			style={{ paddingBottom: Platform.OS === 'ios' ? insets.bottom - 20 : 0 }}
 		>
 			<Animated.View
 				style={[animatedHighlightStyle, { left: (buttonWidth - 60) / 2 }]}
@@ -79,7 +80,7 @@ export function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
 				const label = options.tabBarLabel || options.title || route.name
 
 				const isFocused = state.index === index
-				const iconSource = tabIcons[label]
+				const iconSource = tabIcons[route.name]
 
 				const onPress = () => {
 					const event = navigation.emit({

@@ -1,5 +1,5 @@
 import { Keyboard } from 'react-native'
-import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet'
+import BottomSheet, { BottomSheetBackdrop, BottomSheetScrollView } from '@gorhom/bottom-sheet'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { LocationModel } from '@/src/data/model/LocationModel'
 import { COLORS } from '@/src/constants'
@@ -68,16 +68,18 @@ export default function LocationFormBottomSheet({
 			enablePanDownToClose={true}
 			enableDynamicSizing={false}
 		>
-			<LocationFormView
-				title={title}
-				location={location}
-				isOpenSheet={openSheet}
-				onCancelForm={() => {
-					setOpenSheet(false)
-					closeBottomSheet()
-				}}
-				formType={formType}
-			/>
+			<BottomSheetScrollView>
+				<LocationFormView
+					title={title}
+					location={location}
+					isOpenSheet={openSheet}
+					onCancelForm={() => {
+						setOpenSheet(false)
+						closeBottomSheet()
+					}}
+					formType={formType}
+				/>
+			</BottomSheetScrollView>
 		</BottomSheet>
 	)
 }

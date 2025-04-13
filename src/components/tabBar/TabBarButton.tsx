@@ -56,11 +56,11 @@ export default function TabBarButton({
 				<Animated.Image
 					source={iconSource}
 					tintColor={`${isFocused ? COLORS.primary : isDarkMode ? COLORS.white : COLORS.black}`}
-					className={`w-[25px] h-[25px]`}
+					className={`w-[20px] h-[20px]`}
 					style={[animatedIconStyle]}
 				/>
 				<Animated.Text
-					className={`text-[14px] font-ptsans-bold pt-1 ${isFocused ? 'text-primary' : isDarkMode ? 'text-white' : 'text-black'}`}
+					className={`text-[14px] font-ptsans pt-1 ${isFocused ? 'text-primary' : isDarkMode ? 'text-white' : 'text-black'}`}
 					style={[animatedTextStyle]}
 				>
 					{label}

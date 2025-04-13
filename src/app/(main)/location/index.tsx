@@ -6,9 +6,8 @@ import { RootState } from '@/src/redux/store'
 import { deleteLocation, getLocation } from '@/src/redux/locationSlice'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'expo-router'
-import Loading from '@/src/components/Loading'
 import LocationCardView from '@/src/components/LocationCardView'
-import { WINDOW } from '@/src/constants'
+import { COLORS, WINDOW } from '@/src/constants'
 import CustomButton from '@/src/components/buttons/CustomButton'
 import LocationFormBottomSheet from '@/src/components/bottomsheets/LocationFormBottomSheet'
 import useTranslationHelper from '@/src/hooks/useTranslationHelper'
@@ -16,6 +15,7 @@ import AppTextField from '@/src/components/textfields/AppTextField'
 import { FormType } from '@/src/components/LocationFormView'
 import Toast from 'react-native-toast-message'
 import { LocationModel } from '@/src/data/model/LocationModel'
+import SafeAreaLayout from '@/src/components/layouts/SafeAreaLayout'
 
 export default function Index() {
 	const router = useRouter()
@@ -27,18 +27,25 @@ export default function Index() {
 	const [openCreateSheet, setOpenCreateSheet] = useState(false)
 	const [openUpdateSheet, setOpenUpdateSheet] = useState(false)
 	const [locationToUpdate, setLocationToUpdate] = useState<LocationModel | undefined>(undefined)
+	const [refreshing, setRefreshing] = useState(false)
 	const t = useTranslationHelper()
 
 	useEffect(() => {
 		dispatch(getLocation())
-		console.log(locationList)
 	}, [])
+
+	useEffect(() => {
+		if (!isLoading) {
+			setRefreshing(false)
+		}
+	}, [isLoading])
 
 	useEffect(() => {
 		if (error) {
 			Toast.show({
 				type: 'errorToast',
 				text1: t(error),
+				visibilityTime: 3000,
 			})
 		}
 		if (success) {
@@ -48,14 +55,14 @@ export default function Index() {
 			Toast.show({
 				type: 'successToast',
 				text1: t(success),
-				// bottomOffset: 60,
+				visibilityTime: 3000,
 			})
 		}
 	}, [error, success])
 
 	return (
-		<View className={'flex-1'}>
-			<MainTabLayout title={'Location'} hasBackButton={false}>
+		<SafeAreaLayout>
+			<MainTabLayout title={t('tabLabel.location')} hasBackButton={false}>
 				<View className={'flex-row justify-between mb-[20px] items-center'}>
 					<AppTextField
 						placeholder={t('location.searchLocation')}
@@ -74,7 +81,6 @@ export default function Index() {
 					numColumns={numColumns}
 					key={`location-list-${locationList.length}`}
 					keyExtractor={(item) => item.id}
-					className={'grow-0'}
 					data={locationList}
 					renderItem={({ item }) => {
 						return (
@@ -93,11 +99,19 @@ export default function Index() {
 						)
 					}}
 					refreshControl={
-						<RefreshControl refreshing={false} onRefresh={() => dispatch(getLocation())} />
+						<RefreshControl
+							refreshing={refreshing}
+							tintColor={COLORS.primary}
+							colors={[COLORS.primary]}
+							onRefresh={() => {
+								dispatch(getLocation())
+								setRefreshing(true)
+							}}
+						/>
 					}
 				/>
 			</MainTabLayout>
-			<Loading visible={isLoading} size={50} otherStyles={'bg-transparent'} />
+			{/*<Loading visible={isLoading} size={50} otherStyles={'bg-transparent'} />*/}
 
 			<LocationFormBottomSheet
 				openSheet={openCreateSheet}
@@ -113,6 +127,6 @@ export default function Index() {
 				formType={FormType.update}
 				location={locationToUpdate}
 			/>
-		</View>
+		</SafeAreaLayout>
 	)
 }

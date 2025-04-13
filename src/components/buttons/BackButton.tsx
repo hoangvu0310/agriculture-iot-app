@@ -12,7 +12,7 @@ export default function BackButton({ onPress, otherStyles, isDarkMode }: BackBut
 		<View className={`${otherStyles}`}>
 			<TouchableOpacity activeOpacity={0.9} onPress={onPress}>
 				<Image
-					className={'h-[24px] w-[16px]'}
+					className={'h-[16px] w-[12px]'}
 					source={ICONS.Back}
 					tintColor={isDarkMode ? COLORS.white : COLORS.black}
 				/>

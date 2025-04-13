@@ -38,8 +38,13 @@
     "updateLocation": "Cập nhật địa điểm thành công",
     "deleteLocation": "Xóa địa điểm thành công"
   },
+  "tabLabel": {
+    "home": "Trang chủ",
+    "location": "Địa điểm",
+    "settings": "Cài đặt"
+  },
   "location": {
-    "addLocation": "Thêm Địa điểm",
+    "addLocation": "Tạo địa điểm",
     "searchLocation": "Tìm địa điểm",
     "editLocation": "Chỉnh sửa địa điểm",
     "deleteLocation": "Xóa địa điểm",

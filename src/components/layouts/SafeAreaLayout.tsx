@@ -12,6 +12,7 @@ export default function SafeAreaLayout({ children, otherStyle }: AppSafeAreaProp
 
 	return (
 		<SafeAreaView
+			edges={['left', 'top', 'right']}
 			className={`flex-1 justify-start ${isDarkMode ? 'bg-dark-background' : 'bg-light-background'} ${otherStyle}`}
 		>
 			{children}
