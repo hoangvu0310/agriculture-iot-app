@@ -1,0 +1,5 @@
+/.expo
+node_modules
+metro.config.js
+expo-env.d.ts
+babel.config.js
