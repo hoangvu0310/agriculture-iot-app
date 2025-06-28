@@ -19,7 +19,7 @@ export async function setTheme(value: string) {
 }
 
 export async function getTheme() {
-	return await AsyncStorage.getItem(THEME)
+	return (await AsyncStorage.getItem(THEME)) as ThemeOptions
 }
 
 export async function setLanguage(value: string) {
@@ -27,7 +27,7 @@ export async function setLanguage(value: string) {
 }
 
 export async function getLanguage() {
-	return await AsyncStorage.getItem(LANGUAGE)
+	return (await AsyncStorage.getItem(LANGUAGE)) as LanguageOptions
 }
 
 export async function clearSetting() {

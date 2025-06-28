@@ -9,6 +9,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 		slug: 'agriculture-iot-app',
 		version: '1.0.0',
 		orientation: 'portrait',
+		icon: './assets/icon.png',
 		scheme: 'agriculture-iot-app',
 		userInterfaceStyle: 'automatic',
 		newArchEnabled: true,
@@ -51,6 +52,19 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 					organization: process.env.EXPO_PUBLIC_SENTRY_ORG,
 					project: process.env.EXPO_PUBLIC_SENTRY_PROJECT,
 					url: 'https://sentry.io/',
+				},
+			],
+			[
+				'expo-splash-screen',
+				{
+					backgroundColor: '#ffffff',
+					image: './assets/splash-icon.png',
+					dark: {
+						backgroundImage: './assets/splash-icon.png',
+						backgroundColor: '#000000',
+					},
+					resizeMode: 'contain',
+					imageWidth: 200,
 				},
 			],
 		],

@@ -1,7 +1,7 @@
-import axios from 'axios/index'
 import { getAccessToken } from '@/src/config/storage/SecureStorage'
 import { errorLogger, requestLogger, responseLogger } from 'axios-logger'
 import { Platform } from 'react-native'
+import axios, { InternalAxiosRequestConfig } from 'axios'
 
 const axiosInstance = axios.create({
 	baseURL:
@@ -26,7 +26,7 @@ const loggerConfig = {
 }
 
 axiosInstance.interceptors.request.use(
-	async (config) => {
+	async (config: InternalAxiosRequestConfig) => {
 		requestLogger(config, loggerConfig)
 
 		const accessToken = await getAccessToken()

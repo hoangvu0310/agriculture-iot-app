@@ -15,7 +15,7 @@ export const AppThemeContext = createContext<AppThemeContextProps>({
 export default function AppThemeProvider({ children }: { children: React.ReactNode }) {
 	const [isDarkMode, setIsDarkMode] = useState(false)
 
-	const updateThemeSetting = useCallback(async (theme: string) => {
+	const updateThemeSetting = useCallback(async (theme: ThemeOptions) => {
 		await setTheme(theme)
 		if (theme === ThemeOptions.system) {
 			const systemColorScheme = Appearance.getColorScheme()
